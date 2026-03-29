@@ -6,6 +6,7 @@
 #include <exception>
 #include <string>
 #include <vector>
+#include <array>
 #include <cmath>
 
 double lerp(const double from, const double to, const double factor);
