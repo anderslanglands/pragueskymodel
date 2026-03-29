@@ -249,6 +249,11 @@ constexpr double SUN_RAD_TABLE[]  = {
 };
 constexpr double SUN_RAD_END = SUN_RAD_START + SUN_RAD_STEP * std::size(SUN_RAD_TABLE);
 
+const double* PragueSkyModel::sunIrradianceTable()      { return SUN_RAD_TABLE; }
+int           PragueSkyModel::sunIrradianceTableCount() { return (int)std::size(SUN_RAD_TABLE); }
+double        PragueSkyModel::sunIrradianceTableStart() { return SUN_RAD_START; }
+double        PragueSkyModel::sunIrradianceTableStep()  { return SUN_RAD_STEP; }
+
 
 /////////////////////////////////////////////////////////////////////////////////////
 // Conversion functions

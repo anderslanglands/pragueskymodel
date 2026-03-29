@@ -1,6 +1,8 @@
 // Copyright 2022 Charles University
 // SPDX-License-Identifier: Apache-2.0
 
+#pragma once
+
 #include <exception>
 #include <string>
 #include <vector>
@@ -363,6 +365,41 @@ public:
     ///
     /// Throws NotInitializedException if called without initializing the model first.
     double transmittance(const Parameters& params, const double wavelength, const double distance) const;
+
+    // -----------------------------------------------------------------------
+    // GPU data extraction accessors (for Prague GPU renderer)
+    // -----------------------------------------------------------------------
+    const std::vector<float>&  getDataRad()           const { return dataRad; }
+    const std::vector<float>&  getDataTransU()        const { return dataTransU; }
+    const std::vector<float>&  getDataTransV()        const { return dataTransV; }
+    int   getRank()                   const { return metadataRad.rank; }
+    int   getTotalCoefsSingleConfig() const { return metadataRad.totalCoefsSingleConfig; }
+    int   getSunOffset()              const { return metadataRad.sunOffset; }
+    int   getSunStride()              const { return metadataRad.sunStride; }
+    int   getZenithOffset()           const { return metadataRad.zenithOffset; }
+    int   getZenithStride()           const { return metadataRad.zenithStride; }
+    int   getEmphOffset()             const { return metadataRad.emphOffset; }
+    int   getChannels()               const { return channels; }
+    double getChannelStart()          const { return channelStart; }
+    double getChannelWidth()          const { return channelWidth; }
+    const std::vector<double>& getVisibilitiesRad()   const { return visibilitiesRad; }
+    const std::vector<double>& getAlbedosRad()        const { return albedosRad; }
+    const std::vector<double>& getAltitudesRad()      const { return altitudesRad; }
+    const std::vector<double>& getElevationsRad()     const { return elevationsRad; }
+    const std::vector<double>& getSunBreaks()         const { return metadataRad.sunBreaks; }
+    const std::vector<double>& getZenithBreaks()      const { return metadataRad.zenithBreaks; }
+    const std::vector<double>& getEmphBreaks()        const { return metadataRad.emphBreaks; }
+    int   getDDim()                   const { return dDim; }
+    int   getADim()                   const { return aDim; }
+    int   getRankTrans()              const { return rankTrans; }
+    const std::vector<double>& getVisibilitiesTrans() const { return visibilitiesTrans; }
+    const std::vector<double>& getAltitudesTrans()    const { return altitudesTrans; }
+
+    // Static solar spectral irradiance table (Kurucz data, W/m²/sr/nm)
+    static const double* sunIrradianceTable();
+    static int           sunIrradianceTableCount();
+    static double        sunIrradianceTableStart();
+    static double        sunIrradianceTableStep();
 
 
 /////////////////////////////////////////////////////////////////////////////////////
